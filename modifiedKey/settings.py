@@ -2,7 +2,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '-q7i*3zhggp2x9zf&_ip&!o24mogxz3)41itf3*u08z_r5k-f@'
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['cipherkey.herokuapp.com', '127.0.0.1']
 
 INSTALLED_APPS = [
