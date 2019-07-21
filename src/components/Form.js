@@ -24,7 +24,7 @@ class KeyForm extends React.Component {
 
 //API call to backend to send the components and modifierNum
 //The Response retrive the key, and set isOpen to "true" in state to open the modal.
-    axios.get("http://127.0.0.1:8000/api", {
+    axios.get("https://cipherkey.herokuapp.com/api", {
         params: {
           components: components,
           modifier: modNum,
