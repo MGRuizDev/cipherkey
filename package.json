@@ -3,15 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.19.0",
+    "js-cookie": "^2.2.0",
     "react": "^16.8.6",
+    "react-cookies": "^0.1.1",
     "react-dom": "^16.8.6",
+    "react-ionicons": "^3.0.1",
     "react-scripts": "3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "npm run build"
+  },
+  "engines": {
+    "node":"12.6.0",
+    "npm": "6.10.1"
   },
   "eslintConfig": {
     "extends": "react-app"
