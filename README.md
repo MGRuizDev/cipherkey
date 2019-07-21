@@ -6,6 +6,7 @@ The front-end made a call to the api on Django, which will join the three 16 byt
 and for every 8th byte it will add a modifier instead, creating a cypher key.
 If you want to work with the repository on your local environment. Create a local repository on your directory, clone the repository, create a virtual environment, install requirements for the backend and front-end, and start your applications.
 
+'''
 git init
 git clone https://github.com/MGRuizDev/cipherkey.git
 virtualenv env
@@ -13,3 +14,4 @@ pip install -r requirements.txt
 npm i
 npm run build
 python manage.py runserver
+'''
