@@ -1,10 +1,9 @@
 The project structure has a backend and front-end. 
 In the backend there is the Django Rest Framework to host a simple API. 
 And the front-end uses React and queries data throughout Axios from the API. 
-The interface will received three 16 bytes Hexadecimal numbers and one extra 8 bit hexadecimal number as a modifier. 
-The front-end made a call to the api on Django, which will join the three 16 byte number, 
-and for every 8th byte it will add a modifier instead, creating a cypher key.
-If you want to work with the repository on your local environment. Create a local repository on your directory, clone the repository, create a virtual environment, install requirements for the backend and front-end, and start your applications.
+It includes a python script which contain two functions and that can be run to interact with the user to receive ether a 14-bit range -8192 to 8191 to encode to a 4 digits hexadecimal string or two hexadecimal numbers in the range of 00 to 7f and decode them to a decimal number.
+
+It also include a file "ConvertedData.txt" with encoded and decoded values. It is also added a test unit file with methods to verify the accuracy of the values.
 
 ```
 git init
