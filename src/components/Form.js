@@ -20,7 +20,7 @@ class KeyForm extends React.Component {
 
 //API call to backend to send the values
 //The Response retrive the key, and set isOpen to "true" in state to open the modal.
-    axios.get("http://127.0.0.1:8000/api/encode/", {
+    axios.get("https://cipherkey.herokuapp.com/api/encode/", {
         params: {
           NumToEncode: NumToEncode,
         }
@@ -41,7 +41,7 @@ class KeyForm extends React.Component {
 
 //API call to backend to send the components and modifierNum
 //The Response retrive the key, and set isOpen to "true" in state to open the modal.
-    axios.get("http://127.0.0.1:8000/api/decode/", {
+    axios.get("https://cipherkey.herokuapp.com/api/decode/", {
         params: {
           Num1T0Decode: Num1T0Decode,
           Num2ToDecode: Num2ToDecode,
