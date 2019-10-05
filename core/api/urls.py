@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import DataEncryption
+from .views import Encoder, Decoder
 
 urlpatterns = [
-    path('', DataEncryption.as_view()),
+    path('encode/', Encoder.as_view()),
+    path('decode/', Decoder.as_view()),
 ]

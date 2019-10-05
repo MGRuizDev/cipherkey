@@ -12,22 +12,39 @@ class KeyForm extends React.Component {
   }
 
 
-  handleFormSubmit = (event) => {
+  encodeFormSubmit = (event) => {
 
     event.preventDefault();
-    const fNum = event.target.elements.firstNum.value;
-    const sNum = event.target.elements.SecondNum.value;
-    const tNum = event.target.elements.thirdNum.value;
-    const modNum = event.target.elements.modifierNum.value;
-    const components = fNum + sNum+ tNum;
+    const NumToEncode = event.target.elements.NumberToEncode.value;
+
+
+//API call to backend to send the values
+//The Response retrive the key, and set isOpen to "true" in state to open the modal.
+    axios.get("http://127.0.0.1:8000/api/encode/", {
+        params: {
+          NumToEncode: NumToEncode,
+        }
+        }).then(response => {
+                this.setState({
+                  cipherKey: response.data,
+                  isOpen: true
+                });
+          })
+  }
+
+
+  decodeFormSubmit = (event) => {
+    event.preventDefault();
+    const Num1T0Decode = event.target.elements.FirstNumberToDecode.value;
+    const Num2ToDecode = event.target.elements.SecondNumberToDecode.value;
 
 
 //API call to backend to send the components and modifierNum
 //The Response retrive the key, and set isOpen to "true" in state to open the modal.
-    axios.get("https://cipherkey.herokuapp.com/api", {
+    axios.get("http://127.0.0.1:8000/api/decode/", {
         params: {
-          components: components,
-          modifier: modNum,
+          Num1T0Decode: Num1T0Decode,
+          Num2ToDecode: Num2ToDecode,
         }
         }).then(response => {
                 this.setState({
@@ -38,9 +55,14 @@ class KeyForm extends React.Component {
   }
 
 //This method called from each input will block any character not corresponding to a Hexadecimal number.
-  validInput = (event) => {
+  validEncodedInput = (event) => {
+    const extract = (event.target.value.match("[-0-90-9a-fA-F]+") || []).pop() || '';
+      event.target.value = extract;
+  }
+
+  validDecodedInput = (event) => {
     const extract = (event.target.value.match("[0-9a-fA-F]+") || []).pop() || '';
-    event.target.value = extract;
+      event.target.value = extract;
   }
 
   render(){
@@ -49,47 +71,23 @@ class KeyForm extends React.Component {
       <div className="container">
         <h2 align="center">Cipher Key</h2>
         <div className="form-section">
-          <p>Chose a sixteen byte hexadecimal number for each component. (32 digits number)<br/>
-          <small> from:<br/> 100 0000 0000 0000 0000 0000 0000 0000</small><br/>
-          <small>to:<br/> FFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFF</small><br/>
-          And select a Hex number from 0x00 to 0x0F as modifier to retrive your cipher key.</p>
+          <p>This app will receive ether a 14-bit signed number from range -8192 to 8191 to encode into a 4 digits hexadecimal string
+          , or it will accept two hexadecimal numbers in the range of 00 to 7f and decode them to a decimal number.</p>
 
-            <form onSubmit={this.handleFormSubmit}>
+            <form onSubmit={this.encodeFormSubmit}>
               <label>
-                First Component:
-                <input onChange={this.validInput} name="firstNum" type="text" placeholder="100 0000 0000 0000 0000 0000 0000 0000" required />
+                Number To Encode:
+                <input onChange={this.validEncodedInput} name="NumberToEncode" type="text" placeholder="-8192 to 8191" required/>
+                <button type="submit">RETRIEVE ENCODED VALUE</button>
               </label>
+            </form>
+            <form onSubmit={this.decodeFormSubmit}>
               <label>
-                Second Component:
-                <input onChange={this.validInput} name="SecondNum" type="text" placeholder="100 0000 0000 0000 0000 0000 0000 0000" required/>
+                Numbers To Decode:
+                <input onChange={this.validDecodedInput} name="FirstNumberToDecode" type="text" placeholder="00 to 7f" required/>
+                <input onChange={this.validDecodedInput} name="SecondNumberToDecode" type="text" placeholder="00 to 7f" required/>
+                <button type="submit">RETRIEVE DECODED VALUE</button>
               </label>
-              <label>
-                Third Component:
-                <input onChange={this.validInput} name="thirdNum" type="text" placeholder="100 0000 0000 0000 0000 0000 0000 0000" required/>
-              </label>
-              <label>
-                Select Modifier:
-                <select name="modifierNum" required>
-                  <option value="00">00x00</option>
-                  <option value="01">00x01</option>
-                  <option value="02">00x02</option>
-                  <option value="03">00x03</option>
-                  <option value="04">00x04</option>
-                  <option value="05">00x05</option>
-                  <option value="06">00x06</option>
-                  <option value="07">00x07</option>
-                  <option value="08">00x08</option>
-                  <option value="09">00x09</option>
-                  <option value="0A">00x0A</option>
-                  <option value="0B">00x0B</option>
-                  <option value="0C">00x0C</option>
-                  <option value="0D">00x0D</option>
-                  <option value="0E">00x0E</option>
-                  <option value="0F">00x0F</option>
-                </select>
-              </label>
-
-                <button type="submit">RETRIEVE KEY</button>
             </form>
           </div>
       </div>
