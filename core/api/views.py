@@ -8,13 +8,11 @@ class Encoder(APIView):
 
     def get(self, request):
         number = self.request.query_params['NumToEncode']
-        print(number)
         numberInt = int(number)
-        print(numberInt)
 
         # Add 8192 to the value.
         translated_number = numberInt + 8192
-        print(translated_number)
+
         # Encoding requires to form two bytes from the value.
         # Most significant bit of each byte has to be cleared. In binary: bits 1 to 0
         # Using & operator that compares 1 to 1 return 0
@@ -24,7 +22,7 @@ class Encoder(APIView):
         # In binary second_byte bits are shifted to the left by 1 places inserting a 0
         shiftedSecondByte = secondByte << 1
         encodedValue = firstByte + shiftedSecondByte
-        print(encodedValue)
+
         # Format the two bytes as a hexadecimal string and return it as key.
         key = hex(encodedValue)[2:]
         print(key)
@@ -49,5 +47,5 @@ class Decoder(APIView):
 
         decodedValue = (ShiftedFirstNumberToDecode + SeconNumberToDecode) - 8192
         key = decodedValue
-
+        print(key)
         return Response({'key': key})
