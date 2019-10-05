@@ -3,6 +3,7 @@ import MdKey from 'react-ionicons/lib/MdKey'
 import './Dialog.css';
 
 const Dialog = (props) => {
+  console.log(props)
 //Showing modal with the key.
 //Conditional set the variable dialog with the div class modal in return if isOpen=True
 //if isOpen=false sets dialog on return with value of null.
